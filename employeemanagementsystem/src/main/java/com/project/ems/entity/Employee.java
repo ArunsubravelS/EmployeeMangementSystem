@@ -1,54 +1,76 @@
 package com.project.ems.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="employee")
+@Table(name = "employee")
 public class Employee {
-	
-	@Id
-	@Column(name="e_id")
-	public long eId;
-	
-	@Column(name="name")
-	public String name;
-	
-	@Column(name="dob")
-	public long dob;
-	
-	@Column(name="salary")
-	public long salary;
-	
-	@ManyToOne
-	@JoinColumn
-	public Department department;
-	
-	@Column(name="address")
-	public String address;
-	
-	@Column(name="role")
-	public String role;
-	
-	@Column(name="joining_date")
-	public long joiningDate;
-	
-	@Column(name="yearly_bonus")
-	public long yearlyBonus;
-	
-	@Column(name="reporting_manager")
-	public Employee reportingManager;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public long geteId() {
-		return eId;
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "date_of_birth")
+    private Long dateOfBirth;
+
+    @Column(name = "salary")
+    private double salary;
+
+    @Column(name = "department")
+    private String department;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "role")
+    private String role;
+
+    @Column(name = "joining_date")
+    private Long joiningDate;
+
+    @Column(name = "yearly_bonus_percentage")
+    private double yearlyBonusPercentage;
+
+    @ManyToOne
+    @JoinColumn(name = "reporting_manager_id")
+    private Employee reportingManager;
+
+    public Employee(Long id, String name, Long dateOfBirth, double salary, String department, String address,
+    		String role, Long joiningDate, double yearlyBonusPercentage, Employee reportingManager) {
+    	super();
+    	this.id = id;
+    	this.name = name;
+    	this.dateOfBirth = dateOfBirth;
+    	this.salary = salary;
+    	this.department = department;
+    	this.address = address;
+    	this.role = role;
+    	this.joiningDate = joiningDate;
+    	this.yearlyBonusPercentage = yearlyBonusPercentage;
+    	this.reportingManager = reportingManager;
+    }
+    
+    public Employee() {
+    	super();
+    }
+    
+	public Long getId() {
+		return id;
 	}
 
-	public void seteId(long eId) {
-		this.eId = eId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -59,27 +81,27 @@ public class Employee {
 		this.name = name;
 	}
 
-	public long getDob() {
-		return dob;
+	public Long getDateOfBirth() {
+		return dateOfBirth;
 	}
 
-	public void setDob(long dob) {
-		this.dob = dob;
+	public void setDateOfBirth(Long dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
-	public long getSalary() {
+	public double getSalary() {
 		return salary;
 	}
 
-	public void setSalary(long salary) {
+	public void setSalary(double salary) {
 		this.salary = salary;
 	}
 
-	public Department getDepartment() {
+	public String getDepartment() {
 		return department;
 	}
 
-	public void setDepartment(Department department) {
+	public void setDepartment(String department) {
 		this.department = department;
 	}
 
@@ -99,24 +121,28 @@ public class Employee {
 		this.role = role;
 	}
 
-	public long getJoiningDate() {
+	public Long getJoiningDate() {
 		return joiningDate;
+	}
+
+	public void setJoiningDate(Long joiningDate) {
+		this.joiningDate = joiningDate;
+	}
+
+	public double getYearlyBonusPercentage() {
+		return yearlyBonusPercentage;
+	}
+
+	public void setYearlyBonusPercentage(double yearlyBonusPercentage) {
+		this.yearlyBonusPercentage = yearlyBonusPercentage;
+	}
+
+	public Employee getReportingManager() {
+		return reportingManager;
 	}
 
 	public void setReportingManager(Employee reportingManager) {
 		this.reportingManager = reportingManager;
-	}
-
-	public void setJoiningDate(long joiningDate) {
-		this.joiningDate = joiningDate;
-	}
-
-	public long getYearlyBonus() {
-		return yearlyBonus;
-	}
-
-	public void setYearlyBonus(long yearlyBonus) {
-		this.yearlyBonus = yearlyBonus;
 	}
 
 	

@@ -1,108 +1,99 @@
 package com.project.ems.dto;
+import java.io.Serializable;
 
-import com.project.ems.entity.Department;
+
 import com.project.ems.entity.Employee;
 
-public class EmployeeDto {
-	
-	public long eId;
-	
-	public String name;
-	
-	public long dob;
-	
-	public long salary;
-	
-	public Department department;
-	
-	public String address;
-	
-	public String role;
-	
-	public long joiningDate;
-	
-	public long yearlyBonus;
-	
-	public Employee reportingManager;
-
-	public long geteId() {
-		return eId;
+public class EmployeeDto implements Serializable {
+    private Long id;
+    private String name;
+    private Long dateOfBirth;
+    private double salary;
+    private String department;
+    private String address;
+    private String role;
+    private Long joiningDate;
+    private double yearlyBonusPercentage;
+    private Employee reportingManager;
+    
+    
+    public EmployeeDto(Long id, String name, Long dateOfBirth, double salary, String department, String address,
+    		String role, Long joiningDate, double yearlyBonusPercentage, Employee reportingManager) {
+    	super();
+    	this.id = id;
+    	this.name = name;
+    	this.dateOfBirth = dateOfBirth;
+    	this.salary = salary;
+    	this.department = department;
+    	this.address = address;
+    	this.role = role;
+    	this.joiningDate = joiningDate;
+    	this.yearlyBonusPercentage = yearlyBonusPercentage;
+    	this.reportingManager = reportingManager;
+    }
+    public EmployeeDto() {
+    	super();
+    }
+    
+	public Long getId() {
+		return id;
 	}
-
-	public void seteId(long eId) {
-		this.eId = eId;
+	public void setId(Long id) {
+		this.id = id;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public long getDob() {
-		return dob;
+	public Long getDateOfBirth() {
+		return dateOfBirth;
 	}
-
-	public void setDob(long dob) {
-		this.dob = dob;
+	public void setDateOfBirth(Long dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
-
-	public long getSalary() {
+	public double getSalary() {
 		return salary;
 	}
-
-	public void setSalary(long salary) {
+	public void setSalary(double salary) {
 		this.salary = salary;
 	}
-
-	public Department getDepartment() {
+	public String getDepartment() {
 		return department;
 	}
-
-	public void setDepartment(Department department) {
+	public void setDepartment(String department) {
 		this.department = department;
 	}
-
 	public String getAddress() {
 		return address;
 	}
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
 	public String getRole() {
 		return role;
 	}
-
 	public void setRole(String role) {
 		this.role = role;
 	}
-
-	public long getJoiningDate() {
+	public Long getJoiningDate() {
 		return joiningDate;
 	}
-
-	public void setJoiningDate(long joiningDate) {
+	public void setJoiningDate(Long joiningDate) {
 		this.joiningDate = joiningDate;
 	}
-
-	public long getYearlyBonus() {
-		return yearlyBonus;
+	public double getYearlyBonusPercentage() {
+		return yearlyBonusPercentage;
 	}
-
-	public void setYearlyBonus(long yearlyBonus) {
-		this.yearlyBonus = yearlyBonus;
+	public void setYearlyBonusPercentage(double yearlyBonusPercentage) {
+		this.yearlyBonusPercentage = yearlyBonusPercentage;
 	}
-
 	public Employee getReportingManager() {
 		return reportingManager;
 	}
-
 	public void setReportingManager(Employee reportingManager) {
 		this.reportingManager = reportingManager;
 	}
-	
+    
 }

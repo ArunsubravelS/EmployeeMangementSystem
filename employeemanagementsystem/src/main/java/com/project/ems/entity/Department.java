@@ -1,51 +1,49 @@
 package com.project.ems.entity;
 
-import java.util.List;
+import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 @Entity
-@Table(name="department")
+@Table(name = "department")
 public class Department {
-	
-	@Id
-	@Column(name="d_id")
-	public long dId;
-	
-	@Column(name="name",length=25,nullable=false)
-	public String name;
-	
-	@Column(name="creation_date")
-	public String creationDate;
-	
-	@Column(name="department_head")
-	public Employee departmentHead;
-	
-	@OneToMany(mappedBy ="department" )
-	public List<Employee> employee;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public List<Employee> getEmployee() {
-		return employee;
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "creation_date")
+    private Long creationDate;
+
+    @ManyToOne
+    @JoinColumn(name = "department_head_id")
+    private Employee departmentHead;
+
+    public Department(Long id, String name, Long creationDate, Employee departmentHead) {
+    	super();
+    	this.id = id;
+    	this.name = name;
+    	this.creationDate = creationDate;
+    	this.departmentHead = departmentHead;
+    }
+    
+    public Department() {
+    	super();
+    }
+	public Long getId() {
+		return id;
 	}
 
-	public void setEmployee(List<Employee> employee) {
-		this.employee = employee;
-	}
-
-	public void setDepartmentHead(Employee departmentHead) {
-		this.departmentHead = departmentHead;
-	}
-
-	public long getdId() {
-		return dId;
-	}
-
-	public void setdId(long dId) {
-		this.dId = dId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -56,12 +54,22 @@ public class Department {
 		this.name = name;
 	}
 
-	public String getCreationDate() {
+	public Long getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(String creationDate) {
-		this.creationDate = creationDate;
+	public void setCreationDate(Long date) {
+		this.creationDate = date;
 	}
 
+	public Employee getDepartmentHead() {
+		return departmentHead;
+	}
+
+	public void setDepartmentHead(Employee departmentHead) {
+		this.departmentHead = departmentHead;
+	}
+
+
+    
 }
