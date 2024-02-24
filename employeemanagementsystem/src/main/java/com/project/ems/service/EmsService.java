@@ -31,7 +31,7 @@ public class EmsService {
 
 	public void createEmployee(EmployeeDto eDto) {
 		Employee emp = new Employee();
-		
+		Department dep=new Department();
 
 		emp.setId(eDto.getId());
 		emp.setDateOfBirth(eDto.getDateOfBirth());
@@ -49,14 +49,25 @@ public class EmsService {
 	}
 
 	public void addDepartment(DepartmentDto dDto) {
-
+		Employee emp=new Employee();
 		Department dep = new Department();
 //		Employee employee = new Employee();
 //		BeanUtils.copyProperties(dDto.getDepartmentHead(), employee);
 		dep.setId(dDto.getId());
 		dep.setName(dDto.getName());
 		dep.setCreationDate(dDto.getCreationDate());
-		dep.setDepartmentHead(dDto.getDepartmentHead());
+		emp.setId(dDto.getDepartmentHead().getId());
+		emp.setAddress(dDto.getDepartmentHead().getAddress());
+		emp.setDateOfBirth(dDto.getDepartmentHead().getDateOfBirth());
+		emp.setDepartment(dDto.getDepartmentHead().getDepartment());
+		emp.setName(dDto.getDepartmentHead().getName());
+		emp.setJoiningDate(dDto.getDepartmentHead().getJoiningDate());
+		emp.setReportingManager(dDto.getDepartmentHead().getReportingManager());
+		emp.setRole(dDto.getDepartmentHead().getRole());
+		emp.setSalary(dDto.getDepartmentHead().getSalary());
+		emp.setYearlyBonusPercentage(dDto.getDepartmentHead().getYearlyBonusPercentage());
+		dep.setDepartmentHead(emp.getName());
+		emsRepo.save(emp);
 		dRepo.save(dep);
 	}
 

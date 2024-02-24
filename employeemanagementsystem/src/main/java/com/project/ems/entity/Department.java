@@ -24,7 +24,7 @@ public class Department {
     private Long creationDate;
 
     @ManyToOne
-    @JoinColumn(name = "department_head_id")
+    @JoinColumn(name = "department_head")
     private Employee departmentHead;
 
     public Department(Long id, String name, Long creationDate, Employee departmentHead) {
