@@ -13,8 +13,8 @@ import com.project.ems.entity.Employee;
 @Repository
 public interface EMRepository extends JpaRepository<Employee, Long> {
 	
-	@Query(value="update employee set name=:name,role=:role where e_id=:eId",nativeQuery = true )
-	public void updateEmployee(@RequestParam("name")String name,@RequestParam("eId")long eId);
+//	@Query(value="update employee set name=:name,role=:role where e_id=:eId",nativeQuery = true )
+//	public void updateEmployee(@RequestParam("id")Long id,@RequestParam("eId")long eId);
 
 	@Query(value="select name,e_id from employee",nativeQuery = true )
 	public List<EmployeeDto> findEmployeeNameAndId();

@@ -35,11 +35,11 @@ public class EmsService {
 
 		emp.setId(eDto.getId());
 		emp.setDateOfBirth(eDto.getDateOfBirth());
-		emp.setDepartment(eDto.getDepartment());
+		emp.setDepartment(eDto.getDepartment().toUpperCase());
 		emp.setAddress(eDto.getAddress());
 		emp.setJoiningDate(eDto.getJoiningDate());
 		emp.setName(eDto.getName());
-		emp.setRole(eDto.getRole());
+		emp.setRole(eDto.getRole().toUpperCase());
 		emp.setSalary(eDto.getSalary());
 		emp.setYearlyBonusPercentage(eDto.getYearlyBonusPercentage());
 		
@@ -66,14 +66,30 @@ public class EmsService {
 		emp.setRole(dDto.getDepartmentHead().getRole());
 		emp.setSalary(dDto.getDepartmentHead().getSalary());
 		emp.setYearlyBonusPercentage(dDto.getDepartmentHead().getYearlyBonusPercentage());
-		dep.setDepartmentHead(emp.getName());
+		dep.setDepartmentHead(emp);
 		emsRepo.save(emp);
 		dRepo.save(dep);
 	}
 
-	public void updateEmp() {
+	public Employee updateEmp(Long id,EmployeeDto empDeatails) throws ResourceNotFoundException {
+			Employee employe = emsRepo.findById(id)
+	                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + id));
 
-//		emsRepo.updateEmployee(name, eId);		
+	        // Update employee details
+	        employe.setName(empDeatails.getName());
+	        employe.setDateOfBirth(empDeatails.getDateOfBirth());
+	        employe.setSalary(empDeatails.getSalary());
+	        employe.setDepartment(empDeatails.getDepartment());
+	        // Set other fields as needed
+	        employe.setAddress(empDeatails.getAddress());
+	        employe.setJoiningDate(empDeatails.getJoiningDate());
+	        employe.setRole(employe.getRole());
+	        employe.setYearlyBonusPercentage(empDeatails.getYearlyBonusPercentage());
+	        employe.setReportingManager(employe);
+	        return emsRepo.save(employe);
+		
+		
+			
 	}
 
 	public List<Employee> getAllEmployees() {
@@ -97,7 +113,19 @@ public class EmsService {
 			throw new DepartmentNotEmptyException("Department cannot be deleted as it contains employees.");
 		} else {
 			dRepo.delete(department);
-			return "deleted";
+			return "deleted sucessfully";
+		}
+	}
+
+	public String deleteEmployee(Long id) throws ResourceNotFoundException, DepartmentNotEmptyException {
+		Employee employee = emsRepo.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Department not found with id: "));
+
+		if (employee == null) {
+			throw new DepartmentNotEmptyException("Department cannot be deleted as it contains employees.");
+		} else {
+			emsRepo.delete(employee);
+			return "deleted sucessfully";
 		}
 	}
 

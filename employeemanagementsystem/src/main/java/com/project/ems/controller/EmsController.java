@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,16 +32,16 @@ public class EmsController {
 	EmsService emsService;
 	
 	@PostMapping("/processCreateEmployee")
-	public @ResponseBody ResponseEntity<String> createEmployee(@RequestBody EmployeeDto empDto) {
+	public ResponseEntity<String> createEmployee(@RequestBody EmployeeDto empDto) {
 		emsService.createEmployee(empDto);
 		return  ResponseEntity.ok("employee created successful");
 		
 	}
 	
 	@PostMapping("/processADD")
-	public @ResponseBody String AddDepartment(@RequestBody DepartmentDto dDto){
+	public ResponseEntity<String> AddDepartment(@RequestBody DepartmentDto dDto){
 		emsService.addDepartment(dDto);
-		return "Sucessfully added";
+		return ResponseEntity.ok("Sucessfully added");
 		
 	}
 	
@@ -50,13 +51,13 @@ public class EmsController {
 		return "welcome to ems";
 	}
 	
-//	
-//	@PutMapping("/processUpdateEmployee/{id}")
-//	public void updateEmployee(@PathVariable Long id,@RequestBody Employee empDetails) {
-//		
-//		
-//	}
-//	
+	
+	@PutMapping("/processUpdateEmployee/{id}")
+	public ResponseEntity<Employee> updateEmployee(@PathVariable Long id,@RequestBody EmployeeDto empDetails) throws ResourceNotFoundException {
+	Employee updatedEmployee=emsService.updateEmp(id,empDetails);
+	return ResponseEntity.ok(updatedEmployee);
+	}
+	
 	@GetMapping("/getAllEmployess")
 	public ResponseEntity<List<Employee>> getAllEmployees(){
 		return ResponseEntity.ok(emsService.getAllEmployees());
@@ -71,16 +72,20 @@ public class EmsController {
 	public ResponseEntity<String> deleteDepartment(@PathVariable Long id) throws ResourceNotFoundException, DepartmentNotEmptyException {
 		return ResponseEntity.ok(emsService.deleteDepartment(id));
 	}
+	@DeleteMapping("/employees/{id}")
+	public ResponseEntity<String> deleteEmployee(@PathVariable Long id) throws ResourceNotFoundException, DepartmentNotEmptyException {
+		return ResponseEntity.ok(emsService.deleteEmployee(id));
+	}
 	
 	@GetMapping("/departmentsexpand/{id}")
     public ResponseEntity<Department> getDepartmentWithEmployees(@PathVariable Long id, @RequestParam(required = false) boolean expand) throws ResourceNotFoundException {
         Department department = emsService.getDepartmentById(id);
 
-		/*
-		 * if (expand) { List<Employee> employees =
-		 * emsService.getEmployeesByDepartmentId(id); department.setEmployee(employees);
-		 * }
-		 */
+		
+//		  if (expand) { List<Employee> employees =
+//		  emsService.getEmployeesByDepartmentId(id); department.setEmployee(employees);
+//		  }
+//		 
         return ResponseEntity.ok(department);
     }
 
@@ -94,5 +99,10 @@ public class EmsController {
             return ResponseEntity.ok(emptyList);
         }
     }
+	@PostMapping("/updateDepartment")
+	public ResponseEntity<String> updateDepartment(){
+		return ResponseEntity.ok("updated sucessfully");
+	}
+	
 
 }

@@ -7,18 +7,18 @@ import com.project.ems.entity.Employee;
 public class EmployeeDto implements Serializable {
     private Long id;
     private String name;
-    private Long dateOfBirth;
+    private String dateOfBirth;
     private double salary;
     private String department;
     private String address;
     private String role;
-    private Long joiningDate;
+    private String joiningDate;
     private double yearlyBonusPercentage;
     private Employee reportingManager;
     
     
-    public EmployeeDto(Long id, String name, Long dateOfBirth, double salary, String department, String address,
-    		String role, Long joiningDate, double yearlyBonusPercentage, Employee reportingManager) {
+    public EmployeeDto(Long id, String name, String dateOfBirth, double salary, String department, String address,
+    		String role, String joiningDate, double yearlyBonusPercentage, Employee reportingManager) {
     	super();
     	this.id = id;
     	this.name = name;
@@ -47,10 +47,10 @@ public class EmployeeDto implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Long getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
-	public void setDateOfBirth(Long dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	public double getSalary() {
@@ -77,10 +77,10 @@ public class EmployeeDto implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public Long getJoiningDate() {
+	public String getJoiningDate() {
 		return joiningDate;
 	}
-	public void setJoiningDate(Long joiningDate) {
+	public void setJoiningDate(String joiningDate) {
 		this.joiningDate = joiningDate;
 	}
 	public double getYearlyBonusPercentage() {

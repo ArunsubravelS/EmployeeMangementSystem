@@ -8,10 +8,10 @@ import com.project.ems.entity.Employee;
 public class DepartmentDto implements Serializable {
     private Long id;
     private String name;
-    private Long creationDate;
+    private String creationDate;
     private Employee departmentHead;
     
-    public DepartmentDto(Long id, String name, Long creationDate, Employee departmentHead) {
+    public DepartmentDto(Long id, String name, String creationDate, Employee departmentHead) {
     	super();
     	this.id = id;
     	this.name = name;
@@ -33,10 +33,10 @@ public class DepartmentDto implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Long getCreationDate() {
+	public String getCreationDate() {
 		return creationDate;
 	}
-	public void setCreationDate(Long creationDate) {
+	public void setCreationDate(String creationDate) {
 		this.creationDate = creationDate;
 	}
 	public Employee getDepartmentHead() {

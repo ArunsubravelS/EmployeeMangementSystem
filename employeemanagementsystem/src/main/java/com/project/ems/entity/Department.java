@@ -21,13 +21,13 @@ public class Department {
     private String name;
 
     @Column(name = "creation_date")
-    private Long creationDate;
+    private String creationDate;
 
     @ManyToOne
     @JoinColumn(name = "department_head")
     private Employee departmentHead;
 
-    public Department(Long id, String name, Long creationDate, Employee departmentHead) {
+    public Department(Long id, String name, String creationDate, Employee departmentHead) {
     	super();
     	this.id = id;
     	this.name = name;
@@ -54,11 +54,11 @@ public class Department {
 		this.name = name;
 	}
 
-	public Long getCreationDate() {
+	public String getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(Long date) {
+	public void setCreationDate(String date) {
 		this.creationDate = date;
 	}
 

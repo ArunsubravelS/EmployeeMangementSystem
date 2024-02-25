@@ -22,7 +22,7 @@ public class Employee {
     private String name;
 
     @Column(name = "date_of_birth")
-    private Long dateOfBirth;
+    private String dateOfBirth;
 
     @Column(name = "salary")
     private double salary;
@@ -37,7 +37,7 @@ public class Employee {
     private String role;
 
     @Column(name = "joining_date")
-    private Long joiningDate;
+    private String joiningDate;
 
     @Column(name = "yearly_bonus_percentage")
     private double yearlyBonusPercentage;
@@ -46,8 +46,8 @@ public class Employee {
     @JoinColumn(name = "reporting_manager_id")
     private Employee reportingManager;
 
-    public Employee(Long id, String name, Long dateOfBirth, double salary, String department, String address,
-    		String role, Long joiningDate, double yearlyBonusPercentage, Employee reportingManager) {
+    public Employee(Long id, String name, String dateOfBirth, double salary, String department, String address,
+    		String role, String joiningDate, double yearlyBonusPercentage, Employee reportingManager) {
     	super();
     	this.id = id;
     	this.name = name;
@@ -81,11 +81,11 @@ public class Employee {
 		this.name = name;
 	}
 
-	public Long getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Long dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -121,11 +121,11 @@ public class Employee {
 		this.role = role;
 	}
 
-	public Long getJoiningDate() {
+	public String getJoiningDate() {
 		return joiningDate;
 	}
 
-	public void setJoiningDate(Long joiningDate) {
+	public void setJoiningDate(String joiningDate) {
 		this.joiningDate = joiningDate;
 	}
 
@@ -145,6 +145,4 @@ public class Employee {
 		this.reportingManager = reportingManager;
 	}
 
-	
-	
 }
