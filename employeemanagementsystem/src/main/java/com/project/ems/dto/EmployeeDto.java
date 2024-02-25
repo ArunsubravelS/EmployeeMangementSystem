@@ -31,6 +31,10 @@ public class EmployeeDto implements Serializable {
     	this.yearlyBonusPercentage = yearlyBonusPercentage;
     	this.reportingManager = reportingManager;
     }
+    public EmployeeDto(Employee reportingManager) {
+    	super();
+    	this.reportingManager = reportingManager;
+    }
     public EmployeeDto() {
     	super();
     }

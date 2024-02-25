@@ -4,31 +4,31 @@ import java.util.List;
 
 public class ReportingDto {
 	
-	private EmployeeDto employeeDTO;
+    private EmployeeDto employee;
+    private List<EmployeeDto> reportingChain;
 
-	private List<EmployeeDto> subordinateDTOs;
+    // Constructors, getters, and setters
 
-	public ReportingDto() {
-		super();
-	}
-
-	public ReportingDto(EmployeeDto employeeDTO) {
-        this.employeeDTO = employeeDTO;
+    public ReportingDto() {
     }
 
-	public EmployeeDto getEmployeeDTO() {
-		return employeeDTO;
-	}
+    public ReportingDto(EmployeeDto employee) {
+        this.employee = employee;
+    }
 
-	public void setEmployeeDTO(EmployeeDto employeeDTO) {
-		this.employeeDTO = employeeDTO;
-	}
+    public EmployeeDto getEmployee() {
+        return employee;
+    }
 
-	public List<EmployeeDto> getSubordinateDTOs() {
-		return subordinateDTOs;
-	}
+    public void setEmployee(EmployeeDto employee) {
+        this.employee = employee;
+    }
 
-	public void setSubordinateDTOs(List<EmployeeDto> subordinateDTOs) {
-		this.subordinateDTOs = subordinateDTOs;
-	}
+    public List<EmployeeDto> getReportingChain() {
+        return reportingChain;
+    }
+
+    public void setReportingChain(List<EmployeeDto> reportingChain) {
+        this.reportingChain = reportingChain;
+    }
 }

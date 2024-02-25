@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.project.ems.entity.Department;
 
 @Repository
-public interface DRepository extends JpaRepository<Department, Long> {
+public interface DepartmentRepository extends JpaRepository<Department, Long> {
 
 	@Query(value="select name from department where d_id=:id",nativeQuery=true)
 	public Department findDepartmentById(long id);

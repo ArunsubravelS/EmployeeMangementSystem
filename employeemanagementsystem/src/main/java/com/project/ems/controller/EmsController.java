@@ -17,108 +17,120 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.ems.dto.DepartmentDto;
 import com.project.ems.dto.EmployeeDto;
+import com.project.ems.dto.ReportingDto;
 import com.project.ems.entity.Department;
 import com.project.ems.entity.Employee;
 import com.project.ems.exception.DepartmentNotEmptyException;
 import com.project.ems.exception.ResourceNotFoundException;
-import com.project.ems.service.EmsService;
+import com.project.ems.service.DepartmentService;
+import com.project.ems.service.EmployeeService;
 import com.project.ems.service.PaginationService;
-
-
+import com.project.ems.service.ReportingService;
 
 @RestController
 public class EmsController {
+
+	@Autowired
+	EmployeeService employeeService;
+
+	@Autowired
+	private PaginationService paginationService;
+
+	@Autowired
+	private DepartmentService departmentService;
 	
 	@Autowired
-	EmsService emsService;
+	private ReportingService reportingService;
 	
 	@PostMapping("/processCreateEmployee")
 	public ResponseEntity<String> createEmployee(@RequestBody EmployeeDto empDto) {
-		emsService.createEmployee(empDto);
-		return  ResponseEntity.ok("employee created successful");
-		
+		employeeService.createEmployee(empDto);
+		return ResponseEntity.ok("employee created successful");
+
 	}
-	
+
 	@PostMapping("/processADD")
-	public ResponseEntity<String> AddDepartment(@RequestBody DepartmentDto dDto){
-		emsService.addDepartment(dDto);
-		return ResponseEntity.ok("Sucessfully added");
-		
+	public ResponseEntity<String> AddDepartment(@RequestBody DepartmentDto dDto) {
+		employeeService.addDepartment(dDto);
+		return ResponseEntity.ok("Sucessfully department added");
+
 	}
-	
-	@GetMapping("/")
-	public String welcome() {
-		
-		return "welcome to ems";
-	}
-	
-	
+
+
+
 	@PutMapping("/processUpdateEmployee/{id}")
-	public ResponseEntity<Employee> updateEmployee(@PathVariable Long id,@RequestBody EmployeeDto empDetails) throws ResourceNotFoundException {
-	Employee updatedEmployee=emsService.updateEmp(id,empDetails);
-	return ResponseEntity.ok(updatedEmployee);
+	public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto empDetails)
+			throws ResourceNotFoundException {
+		Employee updatedEmployee = employeeService.updateEmp(id, empDetails);
+		return ResponseEntity.ok(updatedEmployee);
 	}
-	
+
 	@GetMapping("/getAllEmployess")
-	public ResponseEntity<List<Employee>> getAllEmployees(){
-		return ResponseEntity.ok(emsService.getAllEmployees());
+	public ResponseEntity<List<Employee>> getAllEmployees() {
+		return ResponseEntity.ok(employeeService.getAllEmployees());
 	}
-	
+
 	@GetMapping("/getAllDepartments")
-	public ResponseEntity<List<Department>> getAllDepartments(){
-		return ResponseEntity.ok(emsService.getAllDepartments());
+	public ResponseEntity<List<Department>> getAllDepartments() {
+		return ResponseEntity.ok(departmentService.getAllDepartments());
 	}
-	
+
 	@DeleteMapping("/departments/{id}")
-	public ResponseEntity<String> deleteDepartment(@PathVariable Long id) throws ResourceNotFoundException, DepartmentNotEmptyException {
-		return ResponseEntity.ok(emsService.deleteDepartment(id));
+	public ResponseEntity<String> deleteDepartment(@PathVariable Long id)
+			throws ResourceNotFoundException, DepartmentNotEmptyException {
+		return ResponseEntity.ok(departmentService.deleteDepartment(id));
 	}
+
 	@DeleteMapping("/employees/{id}")
-	public ResponseEntity<String> deleteEmployee(@PathVariable Long id) throws ResourceNotFoundException, DepartmentNotEmptyException {
-		return ResponseEntity.ok(emsService.deleteEmployee(id));
+	public ResponseEntity<String> deleteEmployee(@PathVariable Long id)
+			throws ResourceNotFoundException, DepartmentNotEmptyException {
+		return ResponseEntity.ok(employeeService.deleteEmployee(id));
 	}
-	
+
 	@GetMapping("/departmentsexpand/{id}")
-    public ResponseEntity<Department> getDepartmentWithEmployees(@PathVariable Long id, @RequestParam(required = false) boolean expand) throws ResourceNotFoundException {
-        Department department = emsService.getDepartmentById(id);
-        return ResponseEntity.ok(department);
-    }
+	public ResponseEntity<Department> getDepartmentWithEmployees(@PathVariable Long id,
+			@RequestParam(required = false) boolean expand) throws ResourceNotFoundException {
+		Department department = employeeService.getDepartmentById(id);
+		return ResponseEntity.ok(department);
+	}
 
 	@GetMapping("/employeeslookup")
-    public ResponseEntity<List<EmployeeDto>> listEmployeeNameAndId(@RequestParam(required = false) boolean lookup) {
-        if (lookup) {
-            List<EmployeeDto> employeeDTOList = emsService.getEmployeeNameAndId();
-            return ResponseEntity.ok(employeeDTOList);
-        } else {
-            List<EmployeeDto> emptyList = new ArrayList<>();
-            return ResponseEntity.ok(emptyList);
-        }
-    }
+	public ResponseEntity<List<EmployeeDto>> listEmployeeNameAndId(@RequestParam(required = false) boolean lookup) {
+		if (lookup) {
+			List<EmployeeDto> employeeDTOList = employeeService.getEmployeeNameAndId();
+			return ResponseEntity.ok(employeeDTOList);
+		} else {
+			List<EmployeeDto> emptyList = new ArrayList<>();
+			return ResponseEntity.ok(emptyList);
+		}
+	}
+
 	@PutMapping("/updateDepartment/{id}")
-	public ResponseEntity<Department> updateDepartment(@PathVariable Long id, @RequestBody DepartmentDto departmentDTO) throws ResourceNotFoundException {
-		Department updatedDepartment = emsService.updateDepartment(id, departmentDTO);
+	public ResponseEntity<Department> updateDepartment(@PathVariable Long id, @RequestBody DepartmentDto departmentDTO)
+			throws ResourceNotFoundException {
+		Department updatedDepartment = departmentService.updateDepartment(id, departmentDTO);
 		return ResponseEntity.ok(updatedDepartment);
 	}
-	 @PutMapping("/employees/{employeeId}/{department}")
-	    public ResponseEntity<Employee> updateEmployeeDepartment(@PathVariable Long employeeId, @PathVariable String department) throws ResourceNotFoundException {
-	        Employee updatedEmployee = emsService.updateEmployeeDepartment(employeeId, department);
-	        return ResponseEntity.ok(updatedEmployee);
-	    }
-	 
-	 
-	 @Autowired
-	    private PaginationService paginationService;
 
-	    @GetMapping("/employeesPagination")
-	    public ResponseEntity<Page<Employee>> getAllEmployees(@RequestParam(defaultValue = "0") int page) {
-	        List<Employee> allEmployees = emsService.getAllEmployees();
-	        Page<Employee> employeePage = paginationService.getPage(allEmployees, page);
-	        
-	        return ResponseEntity.ok()
-	                .header("X-Page", String.valueOf(employeePage.getNumber()))
-	                .header("X-Total-Pages", String.valueOf(employeePage.getTotalPages()))
-	                .body(employeePage);
-	    }
+	@PutMapping("/employees/{employeeId}/{department}")
+	public ResponseEntity<Employee> updateEmployeeDepartment(@PathVariable Long employeeId,
+			@PathVariable String department) throws ResourceNotFoundException {
+		Employee updatedEmployee = employeeService.updateEmployeeDepartment(employeeId, department);
+		return ResponseEntity.ok(updatedEmployee);
+	}
+
+	@GetMapping("/employeesPagination")
+	public ResponseEntity<Page<Employee>> getAllEmployees(@RequestParam(defaultValue = "0") int page) {
+		List<Employee> allEmployees = employeeService.getAllEmployees();
+		Page<Employee> employeePage = paginationService.getPage(allEmployees, page);
+
+		return ResponseEntity.ok().header("X-Page", String.valueOf(employeePage.getNumber()))
+				.header("X-Total-Pages", String.valueOf(employeePage.getTotalPages())).body(employeePage);
+	}
 	
+	@GetMapping("/employees/{userId}/reporting")
+    public ResponseEntity<ReportingDto> getReportingChain(@PathVariable Long userId) throws ResourceNotFoundException {
+        return reportingService.getReportingChain(userId);
+    }
 
 }
