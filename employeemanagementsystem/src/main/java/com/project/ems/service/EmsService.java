@@ -181,4 +181,25 @@ public class EmsService {
 //	        return ResponseEntity.ok(reportingDTO);
 //	    }
 
+	 public Department updateDepartment(Long id, DepartmentDto departmentDTO) throws ResourceNotFoundException {
+	        Department department = dRepo.findById(id)
+	                .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + id));
+
+	        // Update department details
+	        department.setName(departmentDTO.getName());
+	        department.setCreationDate(departmentDTO.getCreationDate());
+	        department.setDepartmentHead(departmentDTO.getDepartmentHead());
+	        // Set other fields as neede
+	        
+	        return dRepo.save(department);
+	    }
+	 
+
+	    public Employee updateEmployeeDepartment(Long employeeId,String department) throws ResourceNotFoundException {
+	        Employee employee = emsRepo.findById(employeeId)
+	                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + employeeId));
+
+	        employee.setDepartment(department);
+	        return emsRepo.save(employee);
+	    }
 }
